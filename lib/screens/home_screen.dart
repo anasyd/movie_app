@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/api/api.dart';
 import 'package:movie_app/models/movies.dart';
+import 'package:movie_app/screens/search_screen.dart';
 import 'package:movie_app/widgets/horizontal_carousel_slider.dart';
 import 'package:movie_app/widgets/horizintal_slider.dart';
 
@@ -28,15 +29,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         title: Text(
           'MOVIEDB',
-          style: GoogleFonts.aBeeZee(fontSize: subHeadingFontSize),
+          style: GoogleFonts.aBeeZee(
+            fontSize: subHeadingFontSize,
+          ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: (() => {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SearchScreen()))
+                  }),
+              icon: Icon(Icons.search))
+        ],
       ),
       body: SingleChildScrollView(
           child: Padding(
