@@ -14,6 +14,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  dynamic _name = "";
+  dynamic _email = "";
 
   @override
   void initState() {
@@ -47,6 +50,51 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Builder(builder: (context) {
           return Column(
             children: [
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Name'),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) => _name = value,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Email'),
+                        validator: (value) {
+                          if (value != null && !value.contains('@')) {
+                            return 'Please enter a valid email address';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) => _email = value,
+                      ),
+                      IconButton(
+                          onPressed: () => {
+                                if (_formKey.currentState != null)
+                                  {
+                                    print('Name: $_name'),
+                                    print('Email: $_email')
+                                  }
+                              },
+                          icon: Icon(Icons.file_copy_sharp)),
+                      // (
+                      //   onPressed: () {
+                      //     if (_formKey.currentState.validate()) {
+                      //       _formKey.currentState.save();
+                      //       print('Name: $_nameController');
+                      //       print('Email: $_emailController');
+                      //     }
+                      //   },
+                      //   child: Text('Submit'),
+                      // ),
+                    ],
+                  )),
               ListTile(
                 title: Text('Dark Theme'),
                 trailing: IconButton(
