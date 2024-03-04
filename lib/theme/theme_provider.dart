@@ -9,19 +9,10 @@ class ThemeProvider extends ChangeNotifier {
     _selectedTheme = isDarkMode ? darkMode : lightMode;
   }
 
+  // Returns current theme scheme
   ThemeData get getTheme => _selectedTheme;
 
-  // ThemeData _themeData = lightMode;
-  // ThemeData get themData => _themeData;
-
-  // ThemeMode _themeMode = ThemeMode.light;
-  // ThemeMode get themeMode => _themeMode;
-
-  // set themeData(ThemeData themeData) {
-  //   _themeData = themeData;
-  //   notifyListeners();
-  // }
-
+  // Toggle theme and save to local preferences
   Future<void> toggleTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_selectedTheme == lightMode) {
