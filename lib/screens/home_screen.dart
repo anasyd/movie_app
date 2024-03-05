@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 import 'package:movie_app/api/api.dart';
+import 'package:movie_app/api/api_client.dart';
+import 'package:movie_app/constants.dart';
 import 'package:movie_app/models/movies.dart';
 import 'package:movie_app/screens/search_screen.dart';
 import 'package:movie_app/widgets/horizontal_carousel_slider.dart';
@@ -20,8 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    trendingMovies = Api().getTrendingMovies();
-    topRatedMovies = Api().getTopRatedMovies();
+    ApiClient apiClient = ApiClient(Client());
+    MovieApi dataSource = MovieApiImpl(apiClient);
+    trendingMovies = dataSource.getTrendingMovies();
+    topRatedMovies = dataSource.getTopRatedMovies();
   }
 
   final double subHeadingFontSize = 25;
@@ -64,8 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   future: trendingMovies,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
-                      return Center(
-                        child: Text(snapshot.error.toString()),
+                      return const Center(
+                        // Displaying error message
+                        child: Text(MessageConstants.errorMessage),
                       );
                     } else if (snapshot.hasData) {
                       return HorizontalCarouselSlider(snapshot: snapshot);
@@ -92,9 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   future: topRatedMovies,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
-                      return Center(
-                        child: Text(snapshot.error.toString()),
-                      );
+                      return const Center(
+                          // Displaying error message
+                          child: Text(MessageConstants.errorMessage));
                     } else if (snapshot.hasData) {
                       return HorizontalSlider(snapshot: snapshot);
                     } else {

@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/constants.dart';
+import 'package:movie_app/api/api_constants.dart';
 import 'package:movie_app/screens/movie_details_screen.dart';
 
 class HorizontalSlider extends StatelessWidget {
@@ -36,10 +37,13 @@ class HorizontalSlider extends StatelessWidget {
                       child: SizedBox(
                         height: 200,
                         width: 150,
-                        child: Image.network(
-                            filterQuality: FilterQuality.high,
-                            fit: BoxFit.cover,
-                            '${Constants.imagePath}${snapshot.data[index].posterPath}'),
+                        // child: Image.network(
+                        //     filterQuality: FilterQuality.high,
+                        //     fit: BoxFit.cover,
+                        //     '${Constants.imagePath}${snapshot.data[index].posterPath}'),
+                        child: CachedNetworkImage(
+                            imageUrl:
+                                '${ApiConstants.BASE_IMAGE_URL}${snapshot.data[index].posterPath}'),
                       ),
                     ),
                     const SizedBox(

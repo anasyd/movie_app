@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/bottom_navigator.dart';
+import 'package:movie_app/widgets/bottom_navigator.dart';
 import 'package:movie_app/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,14 +8,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(
-        isDarkMode: prefs.getBool("isDarkTheme") ?? true,
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => ThemeProvider(
+          // using ?? because when the app opens for the first time there will be no value
+          isDarkMode: prefs.getBool("isDarkTheme") ?? true,
+        ),
       ),
-      child: const MainApp(),
-    ),
-  );
+    ],
+    child: const MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {

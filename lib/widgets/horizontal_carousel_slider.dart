@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:movie_app/constants.dart';
+import 'package:movie_app/api/api_constants.dart';
 import 'package:movie_app/screens/movie_details_screen.dart';
 
 class HorizontalCarouselSlider extends StatelessWidget {
@@ -40,10 +41,13 @@ class HorizontalCarouselSlider extends StatelessWidget {
               child: SizedBox(
                 height: 300,
                 width: 200,
-                child: Image.network(
-                    filterQuality: FilterQuality.high,
-                    fit: BoxFit.cover,
-                    '${Constants.imagePath}${snapshot.data[itemIndex].posterPath}'),
+                // child: Image.network(
+                //     filterQuality: FilterQuality.high,
+                //     fit: BoxFit.cover,
+                //     '${Constants.imagePath}${snapshot.data[itemIndex].posterPath}'),
+                child: CachedNetworkImage(
+                    imageUrl:
+                        '${ApiConstants.BASE_IMAGE_URL}${snapshot.data[itemIndex].posterPath}'),
               ),
             ),
           );
