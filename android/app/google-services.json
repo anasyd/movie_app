@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "556302801820",
+    "project_id": "anasyd-movieapp",
+    "storage_bucket": "anasyd-movieapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556302801820:android:9f60d422579b4621f20659",
+        "android_client_info": {
+          "package_name": "com.example.movie_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ1_GnRa4MrZ5ZvPbuXVFJRP2Hy2XDD4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
