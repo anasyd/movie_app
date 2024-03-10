@@ -32,7 +32,7 @@ class HorizontalCarouselSlider extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MovieDetailScren(
+                      builder: (context) => MovieDetailScreen(
                             movie: snapshot.data[itemIndex],
                           )));
             },
@@ -41,10 +41,6 @@ class HorizontalCarouselSlider extends StatelessWidget {
               child: SizedBox(
                 height: 300,
                 width: 200,
-                // child: Image.network(
-                //     filterQuality: FilterQuality.high,
-                //     fit: BoxFit.cover,
-                //     '${Constants.imagePath}${snapshot.data[itemIndex].posterPath}'),
                 child: CachedNetworkImage(
                     imageUrl:
                         '${ApiConstants.BASE_IMAGE_URL}${snapshot.data[itemIndex].posterPath}'),
