@@ -13,8 +13,8 @@ class HorizontalSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
       width: double.infinity,
+      height: 300,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: snapshot.data.length,
@@ -26,22 +26,20 @@ class HorizontalSlider extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MovieDetailScren(
+                          builder: (context) => MovieDetailScreen(
                                 movie: snapshot.data[index],
                               )));
                 },
                 child: Column(
                   children: [
                     ClipRRect(
+                      // Setting border radius of image
                       borderRadius: BorderRadius.circular(8),
                       child: SizedBox(
                         height: 200,
                         width: 150,
-                        // child: Image.network(
-                        //     filterQuality: FilterQuality.high,
-                        //     fit: BoxFit.cover,
-                        //     '${Constants.imagePath}${snapshot.data[index].posterPath}'),
                         child: CachedNetworkImage(
+                            fit: BoxFit.cover,
                             imageUrl:
                                 '${ApiConstants.BASE_IMAGE_URL}${snapshot.data[index].posterPath}'),
                       ),
