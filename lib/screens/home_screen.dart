@@ -7,7 +7,8 @@ import 'package:movie_app/constants.dart';
 import 'package:movie_app/models/movies.dart';
 import 'package:movie_app/screens/search_screen.dart';
 import 'package:movie_app/widgets/horizontal_carousel_slider.dart';
-import 'package:movie_app/widgets/horizintal_slider.dart';
+import 'package:movie_app/widgets/horizontal_slider.dart';
+import 'package:movie_app/widgets/vertical_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,16 +20,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Movie>> trendingMovies;
   late Future<List<Movie>> topRatedMovies;
+  bool isVertical = true;
 
   @override
   void initState() {
     super.initState();
+    // creating instance of ApiClient class
     ApiClient apiClient = ApiClient(Client());
+
+    // creating instance of MovieApiImpl class
     MovieApi dataSource = MovieApiImpl(apiClient);
     trendingMovies = dataSource.getTrendingMovies();
     topRatedMovies = dataSource.getTopRatedMovies();
   }
 
+// declaring subHeadingFontSize as a double and initializing it to 25
   final double subHeadingFontSize = 25;
 
   @override
@@ -45,14 +51,18 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: (() => {
-                    Navigator.push(context,
+                    Navigator.push(
+                        context,
+                        // navigating to SearchScreen
                         MaterialPageRoute(builder: (context) => SearchScreen()))
                   }),
+              // displaying search icon
               icon: Icon(Icons.search))
         ],
       ),
       body: SingleChildScrollView(
           child: Padding(
+        // setting padding of all sides to 8
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,33 +93,68 @@ class _HomeScreenState extends State<HomeScreen> {
                   }),
             ),
             const SizedBox(
-              height: 12,
+              height: 8,
             ),
-            Text(
-              "Top Rated",
-              style: GoogleFonts.aBeeZee(fontSize: subHeadingFontSize),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Top Rated",
+                  style: GoogleFonts.aBeeZee(fontSize: subHeadingFontSize),
+                ),
+                IconButton(
+                  icon: Icon(
+                    isVertical ? Icons.list : Icons.grid_view,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isVertical = !isVertical;
+                    });
+                  },
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 12,
-            ),
-            SizedBox(
-              height: 300,
-              child: FutureBuilder(
-                  future: topRatedMovies,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return const Center(
-                          // Displaying error message
-                          child: Text(MessageConstants.errorMessage));
-                    } else if (snapshot.hasData) {
-                      return HorizontalSlider(snapshot: snapshot);
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  }),
-            ),
+            const SizedBox(height: 8),
+
+            // Checking if the user selected horizontal or vertical list view
+            isVertical
+                ? SizedBox(
+                    // Vertical List view
+                    child: FutureBuilder(
+                        future: topRatedMovies,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return const Center(
+                              // Displaying error message
+                              child: Text(MessageConstants.errorMessage),
+                            );
+                          } else if (snapshot.hasData) {
+                            return VerticalSlider(snapshot: snapshot);
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        }))
+                : SizedBox(
+                    // Horizontal List View
+                    child: FutureBuilder(
+                        future: topRatedMovies,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return const Center(
+                              // Displaying error message
+                              child: Text(MessageConstants.errorMessage),
+                            );
+                          } else if (snapshot.hasData) {
+                            return HorizontalSlider(snapshot: snapshot);
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        }),
+                  )
           ],
         ),
       )),
