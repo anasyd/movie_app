@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movies.dart';
 
-class MovieDetailScren extends StatelessWidget {
-  const MovieDetailScren({super.key, required this.movie});
+class MovieDetailScreen extends StatelessWidget {
+  const MovieDetailScreen({super.key, required this.movie});
 
   final Movie movie;
 
