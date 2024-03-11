@@ -63,6 +63,7 @@ class VerticalSlider extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
+
                   SizedBox(
                     // Set the width of the movie details to 45% of the available width
                     width: MediaQuery.of(context).size.width * 0.45,
