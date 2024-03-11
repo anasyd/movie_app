@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/UI/widgets/vertical_slider.dart';
+import 'package:movie_app/constants.dart';
+import 'package:movie_app/models/movies.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -9,16 +12,39 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
+  late Future<List<Movie>> searchResults;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           title: TextField(
             controller: _searchController,
-            decoration: InputDecoration(hintText: "Search for movies"),
+            decoration: const InputDecoration(hintText: "Search for movies"),
           ),
           actions: [IconButton(onPressed: () => {}, icon: Icon(Icons.search))]),
-      body: Center(child: Text("Search")),
+      body: SingleChildScrollView(
+          child: Column(
+        children: [
+          SizedBox(
+              // Vertical List view
+              child: FutureBuilder(
+                  future: searchResults,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Center(
+                        // Displaying error message
+                        child: Text(MessageConstants.errorMessage),
+                      );
+                    } else if (snapshot.hasData) {
+                      return VerticalSlider(snapshot: snapshot);
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }))
+        ],
+      )),
     );
   }
 }
