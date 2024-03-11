@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart'; // Import the C
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/api/api_constants.dart'; // Import the ApiConstants class
-import 'package:movie_app/screens/movie_details_screen.dart'; // Import the MovieDetailScreen widget
+import 'package:movie_app/UI/screens/movie_details_screen.dart'; // Import the MovieDetailScreen widget
 
 class VerticalSlider extends StatelessWidget {
   const VerticalSlider({

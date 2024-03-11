@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/firebase_options.dart';
-import 'package:movie_app/widgets/bottom_navigator.dart';
-import 'package:movie_app/theme/theme_provider.dart';
+import 'package:movie_app/UI/bottom_navigator.dart';
+import 'package:movie_app/UI/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +18,7 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => ThemeProvider(
           // using ?? because when the app opens for the first time there will be no value
-          isDarkMode: prefs.getBool("isDarkTheme") ?? true,
+          isDarkMode: prefs.getBool("isDarkTheme") ?? false,
         ),
       ),
     ],

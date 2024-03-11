@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/api/api_constants.dart';
-import 'package:movie_app/screens/movie_details_screen.dart';
+import 'package:movie_app/UI/screens/movie_details_screen.dart';
 
 class HorizontalSlider extends StatelessWidget {
   const HorizontalSlider({

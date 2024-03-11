@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/theme/theme.dart';
+import 'package:movie_app/UI/theme/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {

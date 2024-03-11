@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/theme/theme_provider.dart';
+import 'package:movie_app/UI/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -28,6 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           return Column(
             children: [
               ListTile(
+                key: ValueKey("ThemeSwitch"),
                 title: Text('Dark Theme'),
                 trailing: IconButton(
                   icon: Icon(Icons.settings_brightness),

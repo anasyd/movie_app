@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/screens/favourites_screen.dart';
-import 'package:movie_app/screens/home_screen.dart';
-import 'package:movie_app/screens/settings_screen.dart';
+import 'package:movie_app/UI/screens/favourites_screen.dart';
+import 'package:movie_app/UI/screens/home_screen.dart';
+import 'package:movie_app/UI/screens/settings_screen.dart';
 
 class AppBottomBar extends StatefulWidget {
   const AppBottomBar({super.key});
