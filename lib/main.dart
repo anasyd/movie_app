@@ -33,6 +33,7 @@ class MainApp extends StatelessWidget {
     return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
       return MaterialApp(
         title: 'MovieDB',
+        debugShowCheckedModeBanner: false,
         theme: themeProvider.getTheme,
         home: const AppBottomBar(),
       );
