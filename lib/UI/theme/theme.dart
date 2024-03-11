@@ -13,7 +13,9 @@ ThemeData lightMode = ThemeData(
     colorScheme: ColorScheme.light(
       background: Colors.grey.shade200,
       primary: Colors.black,
-    ));
+    ),
+    textTheme: GoogleFonts.aBeeZeeTextTheme(
+        ThemeData(brightness: Brightness.light).textTheme));
 
 ThemeData darkMode = ThemeData(
     brightness: Brightness.dark,
@@ -27,6 +29,6 @@ ThemeData darkMode = ThemeData(
       primary: Colors.white60,
       secondary: Colors.grey.shade700,
     ),
-    bottomAppBarTheme: BottomAppBarTheme().copyWith(color: Colors.transparent)
-    // textTheme: TextTheme(bodyLarge: TextStyle(color: Colors.white38))
-    );
+    bottomAppBarTheme: BottomAppBarTheme().copyWith(color: Colors.transparent),
+    textTheme: GoogleFonts.aBeeZeeTextTheme(
+        ThemeData(brightness: Brightness.dark).textTheme));
