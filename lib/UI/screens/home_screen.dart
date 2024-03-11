@@ -48,17 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: (() => {
-                    Navigator.push(
-                        context,
-                        // navigating to SearchScreen
-                        MaterialPageRoute(builder: (context) => SearchScreen()))
-                  }),
-              // displaying search icon
-              icon: Icon(Icons.search))
-        ],
       ),
       body: SingleChildScrollView(
           child: Padding(
