@@ -41,7 +41,7 @@ class _AppBottomBar extends State<AppBottomBar> {
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.search),
-            icon: Icon(Icons.home_outlined),
+            icon: Icon(Icons.search),
             label: 'Search',
           ),
           NavigationDestination(
