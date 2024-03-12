@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:movie_app/UI/screens/movie_details_screen.dart';
 
 import 'package:movie_app/UI/widgets/vertical_slider.dart';
 import 'package:movie_app/api/api_constants.dart';
@@ -14,11 +12,9 @@ class MockApiConstants extends Mock
 void main() {
   testWidgets('VerticalSlider builds movie list', (tester) async {
     // Create a mock snapshot with sample movie data
-
     final mockSnapshot = AsyncSnapshot.withData(ConnectionState.done, [
       Movie(
           title: 'Movie 1',
-          posterPath: 'posterPath1',
           overview: 'Overview 1',
           originalTitle: "No Way Up",
           id: 1096197,
@@ -27,7 +23,6 @@ void main() {
           releaseDate: "2024-01-18"),
       Movie(
           title: 'Movie 2',
-          posterPath: 'posterPath2',
           overview: 'Overview 2',
           originalTitle: "No Way Up2",
           id: 1096197,
@@ -46,7 +41,8 @@ void main() {
         ),
       ),
     );
-
+  });
+  testWidgets('VerticalSlider has the correct data', (tester) async {
     // Find the ListView.builder within VerticalSlider
     final listView = find.byType(ListView);
     expect(listView, findsOneWidget);
