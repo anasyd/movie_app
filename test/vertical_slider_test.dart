@@ -12,6 +12,7 @@ class MockApiConstants extends Mock
 void main() {
   testWidgets('VerticalSlider builds movie list', (tester) async {
     // Create a mock snapshot with sample movie data
+
     final mockSnapshot = AsyncSnapshot.withData(ConnectionState.done, [
       Movie(
           title: 'Movie 1',
@@ -41,8 +42,7 @@ void main() {
         ),
       ),
     );
-  });
-  testWidgets('VerticalSlider has the correct data', (tester) async {
+
     // Find the ListView.builder within VerticalSlider
     final listView = find.byType(ListView);
     expect(listView, findsOneWidget);

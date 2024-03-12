@@ -5,7 +5,6 @@ import 'package:movie_app/api/api.dart';
 import 'package:movie_app/api/api_client.dart';
 import 'package:movie_app/constants.dart';
 import 'package:movie_app/models/movies.dart';
-import 'package:movie_app/UI/screens/search_screen.dart';
 import 'package:movie_app/UI/widgets/horizontal_carousel_slider.dart';
 import 'package:movie_app/UI/widgets/horizontal_slider.dart';
 import 'package:movie_app/UI/widgets/vertical_slider.dart';
