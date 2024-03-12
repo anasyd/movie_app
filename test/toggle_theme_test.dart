@@ -6,39 +6,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  group('ThemeProvider Tests', () {
-    late ThemeProvider themeProvider;
+  test('Default theme is light', () {
+    final themeProvider = ThemeProvider();
+    expect(themeProvider.getTheme, equals(lightMode));
+  });
 
-    setUp(() {
-      themeProvider = ThemeProvider();
-    });
+  test('Toggle theme', () async {
+    SharedPreferences.setMockInitialValues({});
+    final themeProvider = ThemeProvider();
 
-    test('Default theme is light', () {
-      expect(themeProvider.getTheme, equals(lightMode));
-    });
+    await themeProvider.toggleTheme();
+    expect(themeProvider.getTheme, equals(darkMode));
 
-    test('Toggle theme', () async {
-      await themeProvider.toggleTheme();
-      expect(themeProvider.getTheme, equals(darkMode));
-      await themeProvider.toggleTheme();
-      expect(themeProvider.getTheme, equals(lightMode));
-    });
+    await themeProvider.toggleTheme();
+    expect(themeProvider.getTheme, equals(lightMode));
+  });
 
-    test('Theme mode is persisted in shared preferences', () async {
-      SharedPreferences.setMockInitialValues({'isDarkTheme': false});
-      final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getBool('isDarkTheme'), equals(false));
+  test('Toggle theme and persist in shared preferences', () async {
+    SharedPreferences.setMockInitialValues({});
+    final themeProvider = ThemeProvider();
 
-      themeProvider = ThemeProvider();
-      expect(themeProvider.getTheme, equals(lightMode));
+    await themeProvider.toggleTheme();
+    expect(themeProvider.getTheme, equals(darkMode));
 
-      await themeProvider.toggleTheme();
-      expect(themeProvider.getTheme, equals(darkMode));
-      expect(prefs.getBool('isDarkTheme'), equals(true));
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getBool('isDarkTheme'), equals(true));
 
-      await themeProvider.toggleTheme();
-      expect(themeProvider.getTheme, equals(lightMode));
-      expect(prefs.getBool('isDarkTheme'), equals(false));
-    });
+    await themeProvider.toggleTheme();
+    expect(themeProvider.getTheme, equals(lightMode));
+    expect(prefs.getBool('isDarkTheme'), equals(false));
   });
 }

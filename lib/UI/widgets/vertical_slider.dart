@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart'; // Import the C
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/api/api_constants.dart'; // Import the ApiConstants class
-import 'package:movie_app/UI/screens/movie_details_screen.dart'; // Import the MovieDetailScreen widget
+import 'package:movie_app/UI/screens/movie_details_screen.dart';
+import 'package:movie_app/constants.dart'; // Import the MovieDetailScreen widget
 
 class VerticalSlider extends StatelessWidget {
   const VerticalSlider({
@@ -50,12 +51,14 @@ class VerticalSlider extends StatelessWidget {
 
                       // Set the height of the movie poster
                       height: 200,
-                      child: CachedNetworkImage(
-                        // Use the CachedNetworkImage widget to display the movie poster
-                        imageUrl:
-                            '${ApiConstants.BASE_IMAGE_URL}${movie.posterPath}',
-                        fit: BoxFit.cover,
-                      ),
+                      child: movie.posterPath != null
+                          ? CachedNetworkImage(
+                              // Use the CachedNetworkImage widget to display the movie poster
+                              imageUrl:
+                                  '${ApiConstants.BASE_IMAGE_URL}${movie.posterPath}',
+                              fit: BoxFit.cover,
+                            )
+                          : Text(MessageConstants.imageErrorMessage),
                     ),
                   ),
 
