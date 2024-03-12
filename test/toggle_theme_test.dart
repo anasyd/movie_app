@@ -42,34 +42,3 @@ void main() {
     });
   });
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:movie_app/theme/theme_provider.dart';
-// import 'package:provider/provider.dart';
-// import 'package:movie_app/screens/settings_screen.dart';
-
-// void main() {
-//   testWidgets('Toggle theme test', (WidgetTester tester) async {
-//     // Build our app and trigger a frame.
-//     await tester.pumpWidget(
-//       ChangeNotifierProvider(
-//         create: (_) => ThemeProvider(),
-//         child: MaterialApp(
-//           home: SettingsScreen(),
-//         ),
-//       ),
-//     );
-
-//     // Find the Dark Theme ListTile
-//     final darkThemeListTile = find.byKey(ValueKey('ThemeSwitch'));
-//     expect(darkThemeListTile, findsOneWidget);
-
-//     // Tap on the Dark Theme ListTile
-//     await tester.tap(darkThemeListTile);
-//     await tester.pump();
-
-//     // Verify that the theme is toggled
-//     expect(tester.getTheme(), equals(ThemeMode.dark));
-//   });
-// }
