@@ -2,8 +2,8 @@ class Movie {
   String title;
   String originalTitle;
   String overview;
-  String posterPath;
-  String backDropPath;
+  String? posterPath;
+  String? backDropPath;
   String releaseDate;
   double voteAverage;
   int id;
@@ -12,8 +12,8 @@ class Movie {
       {required this.title,
       required this.originalTitle,
       required this.overview,
-      required this.posterPath,
-      required this.backDropPath,
+      this.posterPath,
+      this.backDropPath,
       required this.releaseDate,
       required this.voteAverage,
       required this.id});

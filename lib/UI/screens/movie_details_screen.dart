@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/api/api_constants.dart';
+import 'package:movie_app/constants.dart';
 import 'package:movie_app/models/movies.dart';
 
 class MovieDetailScreen extends StatelessWidget {
@@ -23,14 +24,17 @@ class MovieDetailScreen extends StatelessWidget {
                 // Clip the movie poster to a circular shape
                 borderRadius: BorderRadius.circular(8),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  // Set the height of the movie poster
-                  height: 500,
-                  child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl:
-                          '${ApiConstants.BASE_IMAGE_URL}${movie.posterPath}'),
-                ),
+                    width: MediaQuery.of(context).size.width,
+                    // Set the height of the movie poster
+                    height: 500,
+                    child: movie.posterPath != null
+                        ? CachedNetworkImage(
+                            // Use the CachedNetworkImage widget to display the movie poster
+                            imageUrl:
+                                '${ApiConstants.BASE_IMAGE_URL}${movie.posterPath}',
+                            fit: BoxFit.cover,
+                          )
+                        : Text(MessageConstants.imageErrorMessage)),
               ),
               const SizedBox(
                 height: 8,
