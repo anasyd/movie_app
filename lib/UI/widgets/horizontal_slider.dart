@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/api/api_constants.dart';
 import 'package:movie_app/UI/screens/movie_details_screen.dart';
+import 'package:movie_app/constants.dart';
 
 class HorizontalSlider extends StatelessWidget {
   const HorizontalSlider({
@@ -38,10 +39,16 @@ class HorizontalSlider extends StatelessWidget {
                       child: SizedBox(
                         height: 200,
                         width: 150,
-                        child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl:
-                                '${ApiConstants.BASE_IMAGE_URL}${snapshot.data[index].posterPath}'),
+                        child: snapshot.data[index].posterPath != null
+                            ? CachedNetworkImage(
+                                // Use the CachedNetworkImage widget to display the movie poster
+                                imageUrl:
+                                    '${ApiConstants.BASE_IMAGE_URL}${snapshot.data[index].posterPath}',
+                                fit: BoxFit.cover,
+                              )
+                            : const Center(
+                                child:
+                                    Text(MessageConstants.imageErrorMessage)),
                       ),
                     ),
                     const SizedBox(

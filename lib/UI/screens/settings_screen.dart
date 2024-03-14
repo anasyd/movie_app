@@ -28,10 +28,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           return Column(
             children: [
               ListTile(
-                key: ValueKey("ThemeSwitch"),
-                title: Text('Dark Theme'),
+                key: const ValueKey("ThemeSwitch"),
+                title: const Text('Dark Theme'),
                 trailing: IconButton(
-                  icon: Icon(Icons.settings_brightness),
+                  icon: const Icon(Icons.settings_brightness),
                   onPressed: () {
                     ThemeProvider themeProvider =
                         Provider.of<ThemeProvider>(context, listen: false);

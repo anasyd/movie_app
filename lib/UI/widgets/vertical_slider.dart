@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart'; // Import the CachedNetworkImage widget
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/api/api_constants.dart'; // Import the ApiConstants class
 import 'package:movie_app/UI/screens/movie_details_screen.dart';
 import 'package:movie_app/constants.dart'; // Import the MovieDetailScreen widget
@@ -58,7 +57,9 @@ class VerticalSlider extends StatelessWidget {
                                   '${ApiConstants.BASE_IMAGE_URL}${movie.posterPath}',
                               fit: BoxFit.cover,
                             )
-                          : Text(MessageConstants.imageErrorMessage),
+                          : const Center(
+                              // Display noImage message if no image is provided from the API
+                              child: Text(MessageConstants.imageErrorMessage)),
                     ),
                   ),
 
@@ -77,8 +78,7 @@ class VerticalSlider extends StatelessWidget {
                         // Display the movie title
                         Text(
                           movie.title,
-                          style: GoogleFonts.aBeeZee(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.titleLarge,
 
                           // Limit the number of lines to 2
                           maxLines: 2,
@@ -93,7 +93,7 @@ class VerticalSlider extends StatelessWidget {
                         // Display the movie overview
                         Text(
                           movie.overview,
-                          style: GoogleFonts.aBeeZee(fontSize: 16),
+                          style: Theme.of(context).textTheme.bodyLarge,
 
                           // Limit the number of lines to 7
                           maxLines: 7,

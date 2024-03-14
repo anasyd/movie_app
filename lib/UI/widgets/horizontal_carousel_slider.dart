@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movie_app/api/api_constants.dart';
 import 'package:movie_app/UI/screens/movie_details_screen.dart';
+import 'package:movie_app/constants.dart';
 
 class HorizontalCarouselSlider extends StatelessWidget {
   const HorizontalCarouselSlider({
@@ -39,12 +40,18 @@ class HorizontalCarouselSlider extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
-                height: 300,
-                width: 200,
-                child: CachedNetworkImage(
-                    imageUrl:
-                        '${ApiConstants.BASE_IMAGE_URL}${snapshot.data[itemIndex].posterPath}'),
-              ),
+                  height: 300,
+                  width: 200,
+                  child: snapshot.data.length > 0
+                      ? CachedNetworkImage(
+                          // Use the CachedNetworkImage widget to display the movie poster
+                          imageUrl:
+                              '${ApiConstants.BASE_IMAGE_URL}${snapshot.data[itemIndex].posterPath}',
+                          fit: BoxFit.cover,
+                        )
+                      : const Center(
+                          // Display noImage message if no image is provided from the API
+                          child: Text(MessageConstants.imageErrorMessage))),
             ),
           );
         },
