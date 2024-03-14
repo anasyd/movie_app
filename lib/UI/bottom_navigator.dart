@@ -3,6 +3,9 @@ import 'package:movie_app/UI/screens/home_screen.dart';
 import 'package:movie_app/UI/screens/search_screen.dart';
 import 'package:movie_app/UI/screens/settings_screen.dart';
 
+
+// Reference
+// https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
 class AppBottomBar extends StatefulWidget {
   const AppBottomBar({super.key});
   @override
