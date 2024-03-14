@@ -114,13 +114,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
                             return const Center(
-                              // Displaying error message
+                              // Displaying error message if there's an error
                               child: Text(MessageConstants.errorMessage),
                             );
                           } else if (snapshot.hasData) {
+                            // Displaying vertical slider with movies
                             return VerticalSlider(snapshot: snapshot);
                           } else {
                             return const Center(
+                              // Displaying loading indicator while data is being fetched
                               child: CircularProgressIndicator(),
                             );
                           }
@@ -132,13 +134,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
                             return const Center(
-                              // Displaying error message
+                              // Displaying error message if there's an error
                               child: Text(MessageConstants.errorMessage),
                             );
                           } else if (snapshot.hasData) {
+                            // Displaying horizontal slider with movies
                             return HorizontalSlider(snapshot: snapshot);
                           } else {
                             return const Center(
+                              // Displaying loading indicator while data is being fetched
                               child: CircularProgressIndicator(),
                             );
                           }

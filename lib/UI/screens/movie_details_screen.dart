@@ -12,6 +12,7 @@ import 'package:movie_app/models/movies.dart';
 class MovieDetailScreen extends StatefulWidget {
   const MovieDetailScreen({super.key, required this.movie});
 
+// Movie object passed to the widget
   final Movie movie;
 
   @override
@@ -19,24 +20,32 @@ class MovieDetailScreen extends StatefulWidget {
 }
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
+  // Future object for holding the cast list
   late Future<List<Cast>> castList;
+
+  // Vertical padding constant
   static const double verticalPadding = 16.0;
 
   @override
   void initState() {
     super.initState();
-    // creating instance of ApiClient class
+    // Creating instance of ApiClient class for making API requests
     ApiClient apiClient = ApiClient(Client());
 
-    // creating instance of MovieApiImpl class
+    // Creating instance of MovieApiImpl class for accessing movie-related APIs
     MovieApi dataSource = MovieApiImpl(apiClient);
+
+    // Getting the cast list for the current movie
     castList = dataSource.getCastList(widget.movie.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Setting background color
       backgroundColor: Theme.of(context).colorScheme.background,
+
+      // App bar with the movie title
       appBar: AppBar(title: Text(widget.movie.title)),
       body: SingleChildScrollView(
         child: Padding(
@@ -45,10 +54,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                // Clip the movie poster to a circular shape
+                // Clip the movie poster to a circular shape/ rounded edges
                 borderRadius: BorderRadius.circular(8),
                 child: SizedBox(
+
+                    // Set the width to the full width of the screen
                     width: MediaQuery.of(context).size.width,
+
                     // Set the height of the movie poster
                     height: 500,
                     child: widget.movie.posterPath != null
@@ -59,7 +71,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             fit: BoxFit.cover,
                           )
                         : const Center(
-                            child: Text(MessageConstants.imageErrorMessage))),
+                            // Display no image message if poster is not available
+                            child: Text(MessageConstants.noImageErrorMessage))),
               ),
               const SizedBox(
                 height: verticalPadding,
@@ -67,6 +80,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
+                  // Displaying movie overview
                   widget.movie.overview,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
@@ -75,6 +89,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 height: verticalPadding,
               ),
               Text(
+                // Displaying vote average
                 "Vote average ${widget.movie.voteAverage}",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
@@ -82,6 +97,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 height: verticalPadding,
               ),
               Text(
+                // Displaying cast section title
                 "Cast",
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
@@ -89,20 +105,23 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 height: verticalPadding,
               ),
               SizedBox(
-                // Horizontal List View
+                // Horizontal list view for displaying cast members
                 child: FutureBuilder(
+                    // Using the castList future for building the list
                     future: castList,
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return const Center(
-                          // Displaying error message
+                          // Displaying error message if there's an error
                           child: Center(
                               child: Text(MessageConstants.errorMessage)),
                         );
                       } else if (snapshot.hasData) {
+                        // Displaying horizontal slider with cast members
                         return HorizontalSlider(snapshot: snapshot);
                       } else {
                         return const Center(
+                          // Displaying loading indicator while data is being fetched
                           child: CircularProgressIndicator(),
                         );
                       }

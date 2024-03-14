@@ -52,11 +52,13 @@ class HorizontalSlider extends StatelessWidget {
                     width: boxWidth,
                     child: Column(
                       children: [
+                        // Display name of the actor
                         Text(
                           snapshot.data[index].name,
                           style: Theme.of(context).textTheme.bodyLarge,
                           textAlign: TextAlign.center,
                         ),
+                        // Display name of the character they played
                         Text(
                           snapshot.data[index].character,
                           style: Theme.of(context).textTheme.bodySmall,

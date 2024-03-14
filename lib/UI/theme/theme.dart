@@ -6,7 +6,7 @@ const double titleFontSize = 25;
 ThemeData lightMode = ThemeData(
     brightness: Brightness.light,
     appBarTheme: AppBarTheme(
-        backgroundColor: Color.fromARGB(0, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         foregroundColor: Colors.black,
         titleTextStyle:
             GoogleFonts.aBeeZee(fontSize: titleFontSize, color: Colors.black)),
