@@ -33,8 +33,11 @@ class Movie {
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
+        'original_title': originalTitle,
         'overview': overview,
-        'voteAverage': voteAverage,
-        'posterPath': posterPath,
+        'poster_path': posterPath,
+        'backdrop_path': backDropPath,
+        'release_date': releaseDate,
+        'vote_average': voteAverage,
       };
 }
