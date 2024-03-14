@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:movie_app/api/api.dart';
 import 'package:movie_app/api/api_client.dart';
@@ -8,6 +7,7 @@ import 'package:movie_app/models/movies.dart';
 import 'package:movie_app/UI/widgets/horizontal_carousel_slider.dart';
 import 'package:movie_app/UI/widgets/horizontal_slider.dart';
 import 'package:movie_app/UI/widgets/vertical_slider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,22 +31,33 @@ class _HomeScreenState extends State<HomeScreen> {
     MovieApi dataSource = MovieApiImpl(apiClient);
     trendingMovies = dataSource.getTrendingMovies();
     topRatedMovies = dataSource.getTopRatedMovies();
+
+    _loadLayoutPreference();
   }
 
-// declaring subHeadingFontSize as a double and initializing it to 25
-  final double subHeadingFontSize = 25;
+  _loadLayoutPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      // Load layout preference from SharedPreferences
+      isVertical = prefs.getBool("isVertical") ?? true;
+    });
+  }
+
+  _saveLayoutPreference(bool isVertical) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Save layout preference to SharedPreferences
+    prefs.setBool("isVertical", isVertical);
+  }
+
   static const double verticalPadding = 16.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'MOVIEDB',
-          style: GoogleFonts.aBeeZee(
-            fontSize: subHeadingFontSize,
-          ),
-        ),
+        title:
+            Text('MOVIEDB', style: Theme.of(context).textTheme.headlineSmall),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -57,8 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
+              // Displaying section title for trending movies
               "Trending Movies",
-              style: GoogleFonts.aBeeZee(fontSize: subHeadingFontSize),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(
               height: verticalPadding,
@@ -69,13 +81,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return const Center(
-                        // Displaying error message
+                        // Displaying error message if there's an error
                         child: Text(MessageConstants.errorMessage),
                       );
                     } else if (snapshot.hasData) {
+                      // Displaying horizontal carousel slider with trending movies
                       return HorizontalCarouselSlider(snapshot: snapshot);
                     } else {
                       return const Center(
+                        // Displaying loading indicator while data is being fetched
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -88,16 +102,22 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
+                  // Displaying section title for top rated movies
                   "Top Rated",
-                  style: GoogleFonts.aBeeZee(fontSize: subHeadingFontSize),
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 IconButton(
+                  // Toggle between vertical list and horizontal list icons based on orientation
                   icon: Icon(
-                    isVertical ? Icons.list : Icons.grid_view,
+                    isVertical ? Icons.panorama_horizontal : Icons.list,
                   ),
                   onPressed: () {
                     setState(() {
+                      // Toggle the orientation when the icon is pressed
                       isVertical = !isVertical;
+
+                      // Save the layout preference
+                      _saveLayoutPreference(isVertical);
                     });
                   },
                 ),
