@@ -63,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
         children: [
           SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,
-              // Vertical List view
+              // Vertical List view containing search results
               child: FutureBuilder(
                   future: searchResults,
                   builder: (context, snapshot) {
@@ -73,15 +73,17 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: Text(MessageConstants.errorMessage),
                       );
                     } else if (snapshot.hasData) {
+                      // If there is data render it
                       return VerticalSlider(snapshot: snapshot);
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {
+                      // Displaying Circular Progress when loading
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
-                      return const SizedBox
-                          .shrink(); // Displaying nothing when there are no search results
+                      // Displaying nothing when there are no search results
+                      return const SizedBox.shrink();
                     }
                   }))
         ],

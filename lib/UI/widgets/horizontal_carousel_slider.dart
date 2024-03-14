@@ -30,6 +30,7 @@ class HorizontalCarouselSlider extends StatelessWidget {
         itemBuilder: (context, itemIndex, pageViewIndex) {
           return GestureDetector(
             onTap: () {
+              // Navigate to MovieDetailScreen
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -42,7 +43,7 @@ class HorizontalCarouselSlider extends StatelessWidget {
               child: SizedBox(
                   height: 300,
                   width: 200,
-                  child: snapshot.data.length > 0
+                  child: snapshot.data[itemIndex].posterPath != null
                       ? CachedNetworkImage(
                           // Use the CachedNetworkImage widget to display the movie poster
                           imageUrl:

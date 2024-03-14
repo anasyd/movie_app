@@ -9,6 +9,8 @@ class HorizontalSlider extends StatelessWidget {
     required this.snapshot,
   });
   final AsyncSnapshot snapshot;
+
+  static const double boxWidth = 150;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -28,7 +30,7 @@ class HorizontalSlider extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     child: SizedBox(
                       height: 200,
-                      width: 150,
+                      width: boxWidth,
                       child: snapshot.data[index].profilePath != null
                           ? CachedNetworkImage(
                               // Use the CachedNetworkImage widget to display the movie poster
@@ -47,7 +49,7 @@ class HorizontalSlider extends StatelessWidget {
                   ),
                   //  Name and character box
                   SizedBox(
-                    width: 150,
+                    width: boxWidth,
                     child: Column(
                       children: [
                         Text(

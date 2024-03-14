@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // declaring subHeadingFontSize as a double and initializing it to 25
   final double subHeadingFontSize = 25;
+  static const double verticalPadding = 16.0;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: GoogleFonts.aBeeZee(fontSize: subHeadingFontSize),
             ),
             const SizedBox(
-              height: 12,
+              height: verticalPadding,
             ),
             SizedBox(
               child: FutureBuilder(
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }),
             ),
             const SizedBox(
-              height: 8,
+              height: verticalPadding,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: verticalPadding),
 
             // Checking if the user selected horizontal or vertical list view
             isVertical

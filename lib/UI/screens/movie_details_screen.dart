@@ -20,6 +20,7 @@ class MovieDetailScreen extends StatefulWidget {
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late Future<List<Cast>> castList;
+  static const double verticalPadding = 16.0;
 
   @override
   void initState() {
@@ -61,7 +62,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             child: Text(MessageConstants.imageErrorMessage))),
               ),
               const SizedBox(
-                height: 8,
+                height: verticalPadding,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -71,18 +72,21 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 ),
               ),
               const SizedBox(
-                height: 16,
+                height: verticalPadding,
               ),
               Text(
                 "Vote average ${widget.movie.voteAverage}",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(
-                height: 16,
+                height: verticalPadding,
               ),
               Text(
                 "Cast",
                 style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              const SizedBox(
+                height: verticalPadding,
               ),
               SizedBox(
                 // Horizontal List View
