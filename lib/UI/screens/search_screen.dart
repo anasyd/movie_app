@@ -16,6 +16,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+
     // creating instance of ApiClient class
     ApiClient apiClient = ApiClient(Client());
 
@@ -23,6 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
     dataSource = MovieApiImpl(apiClient);
   }
 
+// Text controller for the search input field
   final TextEditingController _searchController = TextEditingController();
 
   // Initialize searchResults to null
@@ -32,8 +34,13 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isSearchButtonEnabled = false;
 
   late MovieApi dataSource;
+
   // Function to search
   Future<void> _performSearch() async {
+    // Close the keyboard
+    FocusScope.of(context).unfocus();
+
+    // Get search results
     final data = dataSource.getSearchResults(_searchController.text);
     setState(() {
       searchResults = Future.value(data);
@@ -46,30 +53,37 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
           title: TextField(
               controller: _searchController,
+
+              // Placeholder text for the search field
               decoration: const InputDecoration(hintText: "Search for movies"),
               onChanged: (text) {
                 setState(() {
+                  // Enable search button if text is not empty
                   isSearchButtonEnabled = text.isNotEmpty;
                 });
               }),
           actions: [
             IconButton(
-                // Enables button if there is anythin in the textbox
+                // Perform search if button is enabled
                 onPressed: isSearchButtonEnabled ? _performSearch : null,
+
+                // Icon for the search button
                 icon: const Icon(Icons.search))
           ]),
       body: SingleChildScrollView(
           child: Column(
         children: [
           SizedBox(
+              // Setting height to 80% of the screen height
               height: MediaQuery.of(context).size.height * 0.8,
+
               // Vertical List view containing search results
               child: FutureBuilder(
                   future: searchResults,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return const Center(
-                        // Displaying error message
+                        // Displaying error message if there's an error
                         child: Text(MessageConstants.errorMessage),
                       );
                     } else if (snapshot.hasData) {
@@ -77,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       return VerticalSlider(snapshot: snapshot);
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {
-                      // Displaying Circular Progress when loading
+                      // Displaying loading indicator while data is being fetched
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
