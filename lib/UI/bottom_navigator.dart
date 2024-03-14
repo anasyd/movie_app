@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/UI/screens/favourites_screen.dart';
 import 'package:movie_app/UI/screens/home_screen.dart';
 import 'package:movie_app/UI/screens/search_screen.dart';
 import 'package:movie_app/UI/screens/settings_screen.dart';
@@ -14,7 +13,6 @@ class _AppBottomBar extends State<AppBottomBar> {
   static const List<Widget> _pages = <Widget>[
     HomeScreen(),
     SearchScreen(),
-    FavouriteScreen(),
     SettingsScreen(),
   ];
 
@@ -43,11 +41,6 @@ class _AppBottomBar extends State<AppBottomBar> {
             selectedIcon: Icon(Icons.search),
             icon: Icon(Icons.search),
             label: 'Search',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.favorite),
-            icon: Icon(Icons.favorite_outline_sharp),
-            label: 'Favourites',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.settings),
