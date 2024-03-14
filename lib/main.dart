@@ -7,17 +7,23 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  // Ensure that Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize shared preferences for storing app settings
   SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  // Initialize Firebase with default options
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(MultiProvider(
     providers: [
+      // Provide a ChangeNotifierProvider for managing the theme
       ChangeNotifierProvider(
         create: (context) => ThemeProvider(
-          // using ?? because when the app opens for the first time there will be no value
+          // Use ?? operator to handle null values (e.g. when the app is launched for the first time)
           isDarkMode: prefs.getBool("isDarkTheme") ?? false,
         ),
       ),
@@ -32,9 +38,16 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
       return MaterialApp(
+        // App title
         title: 'MovieDB',
+
+        // Disable debug banner
         debugShowCheckedModeBanner: false,
+
+        // Set the theme based on the provider
         theme: themeProvider.getTheme,
+
+        // Set the home screen to the bottom navigation bar
         home: const AppBottomBar(),
       );
     });
