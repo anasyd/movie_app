@@ -1,20 +1,29 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:movie_app/UI/widgets/vertical_slider.dart';
-import 'package:movie_app/api/api_constants.dart';
+import 'package:movie_app/api/api.dart';
+import 'package:movie_app/api/api_client.dart';
 import 'package:movie_app/constants.dart';
 import 'package:movie_app/models/movies.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
-
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController _searchController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    // creating instance of ApiClient class
+    ApiClient apiClient = ApiClient(Client());
+
+    // creating instance of MovieApiImpl class
+    dataSource = MovieApiImpl(apiClient);
+  }
+
+  final TextEditingController _searchController = TextEditingController();
 
   // Initialize searchResults to null
   late Future<List<Movie>>? searchResults = null;
@@ -22,29 +31,13 @@ class _SearchScreenState extends State<SearchScreen> {
   // Strores if user has searched anything
   bool isSearchButtonEnabled = false;
 
+  late MovieApi dataSource;
   // Function to search
-  // void _performSearch() {}
-
   Future<void> _performSearch() async {
-    final apiKey = ApiConstants.API_Key;
-    final baseUrl = 'https://api.themoviedb.org/3';
-    final searchUrl = '$baseUrl/search/movie';
-
-    final query = _searchController.text;
-    final response =
-        await http.get(Uri.parse('$searchUrl?api_key=$apiKey&query=$query'));
-
-    if (response.statusCode == 200) {
-      final rawData = json.decode(response.body);
-      final data = rawData['results'] as List;
-      final movies = data.map((movie) => Movie.fromJson(movie)).toList();
-
-      setState(() {
-        searchResults = Future.value(movies);
-      });
-    } else {
-      throw Exception('Failed to search for movies');
-    }
+    final data = dataSource.getSearchResults(_searchController.text);
+    setState(() {
+      searchResults = Future.value(data);
+    });
   }
 
   @override
@@ -69,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
         children: [
           SizedBox(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height * 0.8,
               // Vertical List view
               child: FutureBuilder(
                   future: searchResults,
