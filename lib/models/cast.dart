@@ -26,6 +26,6 @@ class Cast {
         'name': name,
         'character': character,
         'profile_path': profilePath,
-        'original_name': originalName
+        'original_name': originalName,
       };
 }
