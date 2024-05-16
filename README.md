@@ -5,7 +5,7 @@ by
 ## G20967160
 
 ### Wireframing in Figma
-<img alt="Wireframing in Figma" src="./screenshots/image.png" width="250px" />
+<img alt="Wireframing in Figma" src="./screenshots/image.png" width="350px" />
 
 ### Home Screen with different layout options
 <img alt="Home Screen" src="./screenshots/home_page.jpg" width="250px" />
